@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react";
+import CartModal from "./components/CartModal";
 
 const itemContext = createContext();
 function useValue() {
@@ -11,6 +12,7 @@ function useValue() {
 function CustomItemContext({ children }) {
   const [total, setTotal] = useState(0);
   const [item, setItem] = useState(0);
+  const [showCart, setShowCart] = useState(false);
 
   const handleAdd = (price) => {
     setTotal(total + price);
@@ -25,8 +27,20 @@ function CustomItemContext({ children }) {
     setItem(item - 1);
   };
 
+  const handleReset = () => {
+    setItem(0);
+    setTotal(0);
+  };
+
+  const toggleCart = () => {
+    setShowCart(!showCart);
+  };
+
   return (
-    <itemContext.Provider value={{ total, item, handleAdd, handleRemove }}>
+    <itemContext.Provider
+      value={{ total, item, handleAdd, handleRemove, handleReset, toggleCart }}
+    >
+      {showCart && <CartModal toggleCart={toggleCart} reset={handleReset} />}
       {children}
     </itemContext.Provider>
   );
