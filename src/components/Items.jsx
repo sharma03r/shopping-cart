@@ -3,12 +3,14 @@ import ItemCard from "./ItemCard";
 
 function Items() {
   const items = [
-    { name: "apple", price: 199 },
+    { id: 1, name: "apple", price: 199 },
     {
+      id: 2,
       name: "banana",
       price: 50,
     },
     {
+      id: 3,
       name: "orange",
       price: 150,
     },
@@ -16,7 +18,12 @@ function Items() {
   return (
     <div className={styles.wrapper}>
       {items.map((item, index) => (
-        <ItemCard name={item.name} price={item.price} key={index} />
+        <ItemCard
+          name={item.name}
+          price={item.price}
+          key={item.id}
+          id={item.id}
+        />
       ))}
     </div>
   );
